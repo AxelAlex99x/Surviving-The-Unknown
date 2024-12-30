@@ -8,17 +8,17 @@ public class PlayerController : MonoBehaviour
     private bool lerpCrouch;
     private bool crounching;
     private bool sprinting;
-    float crouchTimer = 0f;
+    private float crouchTimer = 0f;
     [SerializeField]
-    public float playerSpeed = 0f;
+    private float playerSpeed = 0f;
     [SerializeField]
-    public float walkSpeed = 2.5f;
+    private float walkSpeed = 2.5f;
     [SerializeField]
-    public float sprintSpeed = 4f;
+    private float sprintSpeed = 4f;
     [SerializeField]
-    public float jumpHeight = 3.0f;
+    private float jumpHeight = 3.0f;
     [SerializeField]
-    public float gravityValue = -9.81f;
+    private float gravityValue = -9.81f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
