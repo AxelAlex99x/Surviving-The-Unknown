@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private PlayerInput.PlayerActions playerActions;
+    public PlayerInput.PlayerActions playerActions;
     private PlayerController controller;
     private PlayerLook look;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
