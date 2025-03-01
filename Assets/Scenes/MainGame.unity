@@ -479,6 +479,7 @@ MonoBehaviour:
   clockText: {fileID: 620916900}
   timeInADay: 86400
   timeScale: 2
+  howMuchTime: 10
 --- !u!4 &341259518
 Transform:
   m_ObjectHideFlags: 0
@@ -509,8 +510,6 @@ MonoBehaviour:
   directionalLight: {fileID: 203844588}
   sunriseStart: 21600
   sunriseEnd: 25200
-  sunsetStart: 64800
-  sunsetEnd: 68400
 --- !u!1001 &404255495
 PrefabInstance:
   m_ObjectHideFlags: 0

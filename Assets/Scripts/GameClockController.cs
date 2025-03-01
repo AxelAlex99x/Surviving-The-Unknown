@@ -15,12 +15,15 @@ public class GameClockController : MonoBehaviour
     [Header("How Fast Time Pass")] 
     [SerializeField]
     private float timeScale = 2f;
+    [SerializeField]
+    private float howMuchTime = 1f;
 
     private DayNightCycle dayNightCycle;
     private void Start()
     { 
         dayNightCycle = GetComponent<DayNightCycle>(); 
         elapsedTime = 22 * 3600f;
+        SetNightDuration(howMuchTime);
     }
 
     private void Update()
@@ -29,6 +32,11 @@ public class GameClockController : MonoBehaviour
         elapsedTime %= timeInADay;
         UpdateClockUI();
         dayNightCycle.UpdateLighting(elapsedTime);
+    }
+    
+    public void SetNightDuration(float realTimeMinutes)
+    {
+        timeScale = (9 * 3600) / (realTimeMinutes * 60);
     }
 
     void UpdateClockUI()
