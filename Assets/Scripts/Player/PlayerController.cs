@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
 
+    public bool IsGrounded => isGrounded;
+    // public bool IsMoving => walkSpeed > 0.1f;
+    // public bool Sprinting => sprinting;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
