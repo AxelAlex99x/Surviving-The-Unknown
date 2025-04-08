@@ -7,6 +7,9 @@ public class Flashlight : MonoBehaviour
     GameObject flashlight;
     private bool flashlightOn;
     private Light flashlightColor;
+    [SerializeField] private FlashlightBattery battery;
+    
+    public bool IsActive => flashlightOn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +21,7 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputManager.playerActions.ToggleFlashlight.WasPressedThisFrame())
+        if (inputManager.playerActions.ToggleFlashlight.WasPressedThisFrame() && battery.HasBattery)
         {
             if (!flashlightOn)
             {
@@ -40,4 +43,12 @@ public class Flashlight : MonoBehaviour
             flashlightColor.color = Color.white;
         }
     }
+    
+    public void TurnOff()
+    {
+        flashlight.SetActive(false);
+        flashlightOn = false;
+    }
+
+    
 }
