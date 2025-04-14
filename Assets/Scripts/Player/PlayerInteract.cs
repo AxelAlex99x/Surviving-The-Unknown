@@ -34,6 +34,16 @@ public class PlayerInteract : MonoBehaviour
                 {
                     interactable.BaseInteract();
                 }
+
+                if (inputManager.playerActions.Interact.IsPressed())
+                {
+                    interactable.HoldingInteraction();
+                }
+
+                if (inputManager.playerActions.Interact.WasReleasedThisFrame())
+                {
+                    interactable.ReleasingInteraction();
+                }
             }
         }
     }
