@@ -4,7 +4,7 @@ using UnityEngine.InputSystem.Interactions;
 public class Interactable : MonoBehaviour
 {
     public string promptMessage;
-
+    private bool isBeingLookedAt;
     public void BaseInteract()
     {
         Interact();
@@ -19,6 +19,17 @@ public class Interactable : MonoBehaviour
     {
         ReleaseInteraction();
     }
+
+    public void OnStartLookingAt()
+    {
+        OnStartLook();
+    }
+    
+    public void OnStopLookingAt()
+    {
+        OnStopLook();
+    }
+    
     protected virtual void Interact()
     {
         
@@ -32,5 +43,17 @@ public class Interactable : MonoBehaviour
     protected virtual void ReleaseInteraction()
     {
         
+    }
+
+    protected virtual void OnStartLook()
+    {
+        if(!isBeingLookedAt)
+        isBeingLookedAt = true;
+    }
+    
+    protected virtual void OnStopLook()
+    {
+        if(!isBeingLookedAt)
+        isBeingLookedAt = false;
     }
 }

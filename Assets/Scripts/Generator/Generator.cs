@@ -12,10 +12,14 @@ public class Generator : Interactable
     [SerializeField] private float restartDuration = 5f;
 
     [Header("UI")]
+    [SerializeField] private GeneratorFuel fuelSystem;
     [SerializeField] private Slider progressSlider; // Reference to the Slider component
+    [SerializeField] private Fuel fuelCan;
 
-    private enum GeneratorState { Running, Stopped, Restarting }
-    private GeneratorState currentState;
+    [Header("Fuel")]
+    public bool PlayerHasFuelCan { get; set; }
+    public enum GeneratorState { Running, Stopped, Restarting }
+    public GeneratorState currentState;
     private float timer;
     private float currentRunDuration;
     private AudioSource audioSource;
@@ -97,13 +101,31 @@ public class Generator : Interactable
     {
         if (currentState == GeneratorState.Stopped)
         {
-            if (currentState != GeneratorState.Restarting)
+            
+            if (PlayerHasFuelCan && fuelSystem.currentFuel < fuelSystem.maxFuel)
             {
-                currentState = GeneratorState.Restarting;
-                timer = 0f;
-                UpdateUI(true);
+                fuelSystem.StartRefuel();
             }
+           
+            else if (fuelSystem.currentFuel > 0)
+            {
+                if (currentState != GeneratorState.Restarting)
+                {
+                    currentState = GeneratorState.Restarting;
+                    timer = 0f;
+                    UpdateUI(true);
+                }
 
+                timer += Time.deltaTime;
+                progressSlider.value = timer / restartDuration;
+
+                if (timer >= restartDuration)
+                    FinishRestart();
+            }
+        }
+        else if (currentState == GeneratorState.Restarting)
+        {
+            // Continue the restart process
             timer += Time.deltaTime;
             progressSlider.value = timer / restartDuration;
 
@@ -120,8 +142,16 @@ public class Generator : Interactable
             UpdateUI(false);
             timer = 0f;
         }
+        else if (fuelSystem.isRefueling)
+        {
+            fuelSystem.CancelRefuel();
+        }
     }
 
+    public void ConsumeFuelCan()
+    {
+        PlayerHasFuelCan = false; // Reset ownership after refuel
+    }
     private void StartRestart()
     {
         currentState = GeneratorState.Restarting;
@@ -143,4 +173,20 @@ public class Generator : Interactable
         // Optional: Reset slider value when hiding
         if (!show) progressSlider.value = 0;
     }
+    public void StopGenerator()
+    {
+        currentState = GeneratorState.Stopped;
+        audioSource.Stop();
+        foreach (Light light in spotlights)
+        {
+            light.enabled = false;
+        }
+
+        foreach (GameObject lamp in lamps)
+        {
+            lamp.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * -3f);
+        }
+        Debug.Log("Generator stopped!");
+    }
+    
 }
