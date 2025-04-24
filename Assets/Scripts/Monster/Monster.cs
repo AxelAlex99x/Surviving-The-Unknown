@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -61,6 +62,17 @@ public class Monster : MonoBehaviour
     private float animationTimer = 0f;
     private float jumpscareAnimationLength;
     
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private Image bloodDamage;
+    [SerializeField] private GameObject bloodParticles;
+    
+    
+    [Header("Door Interaction")]
+    [SerializeField] private float doorDetectionRange = 2f;
+    [SerializeField] private LayerMask doorLayer;
+    [SerializeField] private float doorCheckInterval = 0.5f;
+    private float lastDoorCheckTime;
+    
     void Start()
     {
         playerCamera      = Camera.main;
@@ -69,7 +81,10 @@ public class Monster : MonoBehaviour
         inputManager      = player.GetComponent<InputManager>();
         monsterRenderer   = GetComponent<Renderer>();
         monsterCollider   = GetComponent<Collider>();
-
+        
+        bloodDamage.enabled = false;
+        bloodParticles.SetActive(false);
+        
         agent.speed        = stalkSpeed;
         currentRespawnTime = respawnTime;
         if (deathUI != null) deathUI.SetActive(false);
@@ -103,8 +118,34 @@ public class Monster : MonoBehaviour
             HandleJumpscare();
 
         HandleFlashlight();
+        
+        
+        if(Time.time - lastDoorCheckTime > doorCheckInterval && !isJumpScaring)
+        {
+            CheckForDoors();
+            lastDoorCheckTime = Time.time;
+        }
     }
 
+    private void CheckForDoors()
+    {
+        RaycastHit hit;
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        
+        if(Physics.Raycast(transform.position, directionToPlayer, out hit, doorDetectionRange, doorLayer))
+        {
+            Door door = hit.collider.GetComponent<Door>();
+            if(door != null && !door.IsOpen)
+            {
+                Vector3 doorDirection = (hit.transform.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(doorDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10f * Time.deltaTime);
+            
+                door.ToggleDoor(true);
+            }
+        }
+    }
+    
     private void HandleStalkAndTrigger()
     {
         lastPlayerPosition = player.position;
@@ -154,16 +195,14 @@ public class Monster : MonoBehaviour
 
         if (isInJumpscare)
         {
-           
-                
-                if (!isZooming)
-                {
-                    originalCamPos = playerCamera.transform.position;
-                    originalCamRot = playerCamera.transform.rotation;
-                    isZooming = true;
-                    zoomProgress = 0f;
-                }
-            
+            playerAudioSource.Stop();
+            if (!isZooming)
+            {
+                originalCamPos = playerCamera.transform.position;
+                originalCamRot = playerCamera.transform.rotation;
+                isZooming = true;
+                zoomProgress = 0f;
+            }
         }
 
         
@@ -181,6 +220,11 @@ public class Monster : MonoBehaviour
             
             if (zoomProgress >= 1f && !deathUI.activeSelf)
             {
+                if (stateInfo.normalizedTime > 0.5f)
+                {
+                    bloodDamage.enabled = true;
+                    bloodParticles.SetActive(true);
+                }
                 if (stateInfo.normalizedTime > 1.1f)
                 {
                     deathUI.SetActive(true);
