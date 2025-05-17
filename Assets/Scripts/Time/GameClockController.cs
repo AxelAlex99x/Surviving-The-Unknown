@@ -19,7 +19,10 @@ public class GameClockController : MonoBehaviour
     private float howMuchTime = 1f;
 
     private DayNightCycle dayNightCycle;
-    private void Start()
+    
+    public float CurrentTime => elapsedTime;
+    public float TimeInADay => timeInADay;
+    private void Awake()
     { 
         dayNightCycle = GetComponent<DayNightCycle>(); 
         elapsedTime = 22 * 3600f;

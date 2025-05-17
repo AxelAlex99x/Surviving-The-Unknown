@@ -11,7 +11,7 @@ public class GeneratorFuel : MonoBehaviour
     public Slider fuelSlider;
     public TextMeshProUGUI fuelText;
     public Slider refuelProgressSlider;
-    public float refuelDuration = 10f;
+    public float refuelDuration = 7f;
     public LayerMask generatorLayer;
 
     private Generator generator;

@@ -13,7 +13,7 @@ public class Generator : Interactable
 
     [Header("UI")]
     [SerializeField] private GeneratorFuel fuelSystem;
-    [SerializeField] private Slider progressSlider; // Reference to the Slider component
+    [SerializeField] private Slider progressSlider; 
     [SerializeField] private Fuel fuelCan;
 
     [Header("Fuel")]
@@ -125,7 +125,6 @@ public class Generator : Interactable
         }
         else if (currentState == GeneratorState.Restarting)
         {
-            // Continue the restart process
             timer += Time.deltaTime;
             progressSlider.value = timer / restartDuration;
 
@@ -150,7 +149,7 @@ public class Generator : Interactable
 
     public void ConsumeFuelCan()
     {
-        PlayerHasFuelCan = false; // Reset ownership after refuel
+        PlayerHasFuelCan = false; 
     }
     private void StartRestart()
     {
@@ -167,10 +166,8 @@ public class Generator : Interactable
 
     private void UpdateUI(bool show)
     {
-        // Enable/disable the entire slider GameObject
         progressSlider.gameObject.SetActive(show);
         
-        // Optional: Reset slider value when hiding
         if (!show) progressSlider.value = 0;
     }
     public void StopGenerator()
