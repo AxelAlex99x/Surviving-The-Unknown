@@ -242,6 +242,23 @@ public class Monster : MonoBehaviour
     {
         if (flashlight.IsActive && inputManager.playerActions.FlashlightColor.IsInProgress())
         {
+            Vector3 toMonster = transform.position - flashlight.transform.position;
+            float distance = toMonster.magnitude;
+            
+            if (distance > flashlight.lightComponent.range)
+                return;
+
+            float angle = Vector3.Angle(flashlight.transform.forward, toMonster.normalized);
+            if (angle > flashlight.lightComponent.spotAngle / 2f)
+                return;
+
+            RaycastHit hit;
+            if (Physics.Raycast(flashlight.transform.position, toMonster.normalized, out hit, distance))
+            {
+                if (hit.collider.gameObject != gameObject)
+                    return; 
+            }
+            
             DisableMonster();
             RepositionMonster();
             currentRespawnTime = flashlightRespawnTime;

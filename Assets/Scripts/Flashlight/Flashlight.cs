@@ -9,6 +9,7 @@ public class Flashlight : MonoBehaviour
     private Light flashlightColor;
     [SerializeField] private FlashlightBattery battery;
     
+    public Light lightComponent;
     public bool IsActive => flashlightOn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

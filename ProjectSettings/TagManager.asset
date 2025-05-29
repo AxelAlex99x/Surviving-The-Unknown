@@ -16,8 +16,8 @@ TagManager:
   - Interactable
   - Ignored
   - NoNavMesh
-  - 
-  - 
+  - InvisibleWalls
+  - Monster
   - 
   - 
   - 
