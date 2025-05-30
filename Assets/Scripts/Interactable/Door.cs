@@ -9,7 +9,8 @@ public class Door : Interactable
     private bool doorOpen;
     private Animator doorAnimator;
     [SerializeField] private NavMeshObstacle obstacle;
-    
+
+    [SerializeField] private AudioSource audioSource;
     public bool IsOpen => doorOpen;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,10 +32,12 @@ public class Door : Interactable
         if (doorOpen)
             {
                 doorAnimator.Play("Closed");
+                audioSource.Play();
             }
             else
             {
                 doorAnimator.Play("Opened");
+                audioSource.Play();
             }
         obstacle.carving = !doorOpen; 
     }

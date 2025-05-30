@@ -8,7 +8,8 @@ public class Flashlight : MonoBehaviour
     private bool flashlightOn;
     private Light flashlightColor;
     [SerializeField] private FlashlightBattery battery;
-    
+    [SerializeField] private AudioSource flashlightAudio;
+    [SerializeField] private AudioClip activateFlashlightSound;
     public Light lightComponent;
     public bool IsActive => flashlightOn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,22 +27,34 @@ public class Flashlight : MonoBehaviour
         {
             if (!flashlightOn)
             {
+                if(!flashlightAudio.isPlaying)
+                flashlightAudio.PlayOneShot(activateFlashlightSound);
                 flashlight.SetActive(true);
                 flashlightOn = true;
             }
             else
             {
+                if(!flashlightAudio.isPlaying)
+                flashlightAudio.PlayOneShot(activateFlashlightSound);
                 flashlight.SetActive(false);
                 flashlightOn = false;
             }
         }
-        if (flashlightOn && inputManager.playerActions.FlashlightColor.IsInProgress())
+
+        if (flashlightOn)
         {
-            flashlightColor.color = Color.magenta;
-        }
-        else
-        {
-            flashlightColor.color = Color.white;
+            if (inputManager.playerActions.FlashlightColor.IsInProgress())
+            {
+                if(!flashlightAudio.isPlaying && inputManager.playerActions.FlashlightColor.WasPressedThisFrame())
+                    flashlightAudio.PlayOneShot(activateFlashlightSound);
+                flashlightColor.color = Color.magenta;
+            }
+            else
+            {
+                if(!flashlightAudio.isPlaying && inputManager.playerActions.FlashlightColor.WasReleasedThisFrame())
+                    flashlightAudio.PlayOneShot(activateFlashlightSound);
+                flashlightColor.color = Color.white;
+            }
         }
     }
     

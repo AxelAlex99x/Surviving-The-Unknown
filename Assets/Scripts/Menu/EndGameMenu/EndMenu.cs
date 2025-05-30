@@ -11,6 +11,8 @@ public class EndMenu : MonoBehaviour
     [SerializeField] private GameClockController gameClock;
     [SerializeField] private GameObject endGameUI;
 
+    public AudioSource audioSource;
+    
     private float initialElapsedTime;
     private float timeInADay;
     private bool gameEnded = false;
@@ -36,10 +38,31 @@ public class EndMenu : MonoBehaviour
 
     void EndGame()
     {
-       
         gameEnded = true;
         Time.timeScale = 0f;
         endGameUI.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        PauseMenu pauseMenu = FindFirstObjectByType<PauseMenu>();
+        if (pauseMenu != null)
+        {
+            pauseMenu.enabled = false;
+        }
+        Ambience ambienceScript = FindFirstObjectByType<Ambience>();
+        RandomSoundEffects soundEffects = FindFirstObjectByType<RandomSoundEffects>();
+        WindSound windSound = FindFirstObjectByType<WindSound>();
+        ambienceScript.enabled = false;
+        soundEffects.enabled = false;
+        windSound.enabled = false;
+        AudioSource[] allAudioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (AudioSource source in allAudioSources)
+        {
+            if (source != audioSource)
+            {
+                source.Stop();
+            }
+        }
+        audioSource.Play();
     }
 
     public void PlayAgain()

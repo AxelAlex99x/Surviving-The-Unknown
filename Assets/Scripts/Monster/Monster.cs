@@ -15,7 +15,6 @@ public class Monster : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float stalkSpeed = 3f;
-    [SerializeField] private float behindDistance = 2f;
     [SerializeField] private float respawnTime = 15f;
     [SerializeField] private float flashlightRespawnTime = 5f;
     [SerializeField] private float attackSpeed = 5f;
@@ -23,8 +22,7 @@ public class Monster : MonoBehaviour
 
     [Header("Jumpscare Settings")]
     [SerializeField] private float jumpscarePositionDistance = 1.5f;
-    [SerializeField] private float jumpscareHeightOffset = 1.7f;
-    [SerializeField] private float jumpscareDuration = 2f;
+    //[SerializeField] private float jumpscareDuration = 2f;
 
     [Header("Camera Zoom Settings")]
     [SerializeField] private float zoomDuration = 0.5f;
@@ -50,7 +48,6 @@ public class Monster : MonoBehaviour
     private bool isZooming = false;
 
     private float zoomProgress;
-    private float jumpscareTimer;
     private float respawnTimer;
     private float currentRespawnTime;
 
@@ -58,14 +55,9 @@ public class Monster : MonoBehaviour
     private Vector3 originalCamPos;
     private Quaternion originalCamRot;
     
-    private bool isAnimationPlaying = false;
-    private float animationTimer = 0f;
-    private float jumpscareAnimationLength;
-    
     [SerializeField] private AudioSource playerAudioSource;
     [SerializeField] private Image bloodDamage;
     [SerializeField] private GameObject bloodParticles;
-    
     
     [Header("Door Interaction")]
     [SerializeField] private float doorDetectionRange = 2f;
@@ -119,7 +111,6 @@ public class Monster : MonoBehaviour
 
         HandleFlashlight();
         
-        
         if(Time.time - lastDoorCheckTime > doorCheckInterval && !isJumpScaring)
         {
             CheckForDoors();
@@ -170,26 +161,21 @@ public class Monster : MonoBehaviour
         if (isJumpScaring) return;
         isJumpScaring = true;
 
-        
         agent.enabled = false;
         foreach (var c in cameraControllers)
             if (c != null) c.enabled = false;
 
-       
         monsterAnimator.SetTrigger("Jumpscare");
         if (jumpscareSound != null) jumpscareSound.Play();
 
-        
         var pc = player.GetComponent<PlayerController>();
         if (pc != null) pc.enabled = false;
-        Debug.Log("Jumpscare triggered");
     }
 
     private void HandleJumpscare()
     {
         if (!isJumpScaring) return;
 
-        
         AnimatorStateInfo stateInfo = monsterAnimator.GetCurrentAnimatorStateInfo(0);
         bool isInJumpscare = stateInfo.IsName("pick"); 
 
@@ -205,7 +191,6 @@ public class Monster : MonoBehaviour
             }
         }
 
-        
         if (isZooming)
         {
             zoomProgress += Time.deltaTime / zoomDuration;
@@ -217,7 +202,6 @@ public class Monster : MonoBehaviour
             playerCamera.transform.position = Vector3.Lerp(originalCamPos, endPos, t);
             playerCamera.transform.rotation = Quaternion.Slerp(originalCamRot, endRot, t);
 
-            
             if (zoomProgress >= 1f && !deathUI.activeSelf)
             {
                 if (stateInfo.normalizedTime > 0.5f)
@@ -225,11 +209,30 @@ public class Monster : MonoBehaviour
                     bloodDamage.enabled = true;
                     bloodParticles.SetActive(true);
                 }
-                if (stateInfo.normalizedTime > 1.1f)
+                if (stateInfo.normalizedTime > 1.4f)
                 {
                     deathUI.SetActive(true);
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
+                    PauseMenu pauseMenu = FindFirstObjectByType<PauseMenu>();
+                    if (pauseMenu != null)
+                    {
+                        pauseMenu.enabled = false;
+                    }
+                    Ambience ambienceScript = FindFirstObjectByType<Ambience>();
+                    RandomSoundEffects soundEffects = FindFirstObjectByType<RandomSoundEffects>();
+                    WindSound windSound = FindFirstObjectByType<WindSound>();
+                    ambienceScript.enabled = false;
+                    soundEffects.enabled = false;
+                    windSound.enabled = false;
+                    AudioSource[] allAudioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+                    foreach (AudioSource source in allAudioSources)
+                    {
+                        if (source != jumpscareSound)
+                        {
+                            source.Stop();
+                        }
+                    }
                     Time.timeScale = 0f;
                     isZooming = false;
                     isJumpScaring = false; 

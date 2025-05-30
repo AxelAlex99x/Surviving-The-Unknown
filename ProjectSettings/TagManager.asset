@@ -6,6 +6,7 @@ TagManager:
   tags:
   - House
   - Ground
+  - CabinZone
   layers:
   - Default
   - TransparentFX
