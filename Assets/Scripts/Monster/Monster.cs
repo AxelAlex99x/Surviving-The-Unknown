@@ -296,6 +296,10 @@ public class Monster : MonoBehaviour
         if (jumpscareLight != null) {
             jumpscareLight.enabled = false;
         }
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
     }
 
     private void DisableMonster()
@@ -308,6 +312,10 @@ public class Monster : MonoBehaviour
         monsterCollider.enabled = false;
         if (jumpscareLight != null) {
             jumpscareLight.enabled = false;
+        }
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
         }
     }
 
