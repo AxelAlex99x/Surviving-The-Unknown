@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,13 +16,16 @@ public class Monster : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float stalkSpeed = 3f;
-    [SerializeField] private float respawnTime = 15f;
-    [SerializeField] private float flashlightRespawnTime = 5f;
+    [SerializeField] private float minRespawnTime = 10f;
+    [SerializeField] private float maxRespawnTime = 20f;
+    [SerializeField] private float minFlashlightRespawnTime = 3f;
+    [SerializeField] private float maxFlashlightRespawnTime = 8f;
     [SerializeField] private float attackSpeed = 5f;
     [SerializeField] private float minAttackDistance = 1f;
 
     [Header("Jumpscare Settings")]
     [SerializeField] private float jumpscarePositionDistance = 1.5f;
+    [SerializeField] private Light jumpscareLight;
     //[SerializeField] private float jumpscareDuration = 2f;
 
     [Header("Camera Zoom Settings")]
@@ -78,15 +82,20 @@ public class Monster : MonoBehaviour
         bloodParticles.SetActive(false);
         
         agent.speed        = stalkSpeed;
-        currentRespawnTime = respawnTime;
+        currentRespawnTime = Random.Range(minRespawnTime, maxRespawnTime);
         if (deathUI != null) deathUI.SetActive(false);
+        jumpscareLight.enabled = false;
     }
 
     void Update()
     {
         if (generator.currentState == Generator.GeneratorState.Running)
         {
-            if (isActive) DisableMonster();
+            if (isActive) 
+            {
+                currentRespawnTime = Random.Range(minRespawnTime, maxRespawnTime);
+                DisableMonster();
+            }
             return;
         }
 
@@ -97,7 +106,6 @@ public class Monster : MonoBehaviour
             {
                 EnableMonster();
                 respawnTimer = 0f;
-                currentRespawnTime = respawnTime;
             }
             return;
         }
@@ -167,7 +175,15 @@ public class Monster : MonoBehaviour
 
         monsterAnimator.SetTrigger("Jumpscare");
         if (jumpscareSound != null) jumpscareSound.Play();
-
+        
+        if (jumpscareLight != null) {
+            jumpscareLight.enabled = true;
+        }
+        
+        if (flashlight != null) {
+            flashlight.TurnOff();
+        }
+        
         var pc = player.GetComponent<PlayerController>();
         if (pc != null) pc.enabled = false;
     }
@@ -264,7 +280,7 @@ public class Monster : MonoBehaviour
             
             DisableMonster();
             RepositionMonster();
-            currentRespawnTime = flashlightRespawnTime;
+            currentRespawnTime = Random.Range(minFlashlightRespawnTime, maxFlashlightRespawnTime);
             respawnTimer = 0f;
         }
     }
@@ -277,6 +293,9 @@ public class Monster : MonoBehaviour
         agent.enabled   = true;
         monsterRenderer.enabled = true;
         monsterCollider.enabled = true;
+        if (jumpscareLight != null) {
+            jumpscareLight.enabled = false;
+        }
     }
 
     private void DisableMonster()
@@ -287,6 +306,9 @@ public class Monster : MonoBehaviour
         agent.enabled   = false;
         monsterRenderer.enabled = false;
         monsterCollider.enabled = false;
+        if (jumpscareLight != null) {
+            jumpscareLight.enabled = false;
+        }
     }
 
     private void RepositionMonster()
