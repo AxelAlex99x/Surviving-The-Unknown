@@ -9,11 +9,18 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Sprite playIcon;
     [SerializeField] private Sprite pauseIcon;
 
+    public Canvas settings;
     private bool isMusicPaused;
     
     private void Start()
     {
+        settings.gameObject.SetActive(false);
         UpdateButtonIcon();
+    }
+
+    public void OpenSettings()
+    {
+        settings.gameObject.SetActive(true);
     }
     
     public void ToggleMusic()
