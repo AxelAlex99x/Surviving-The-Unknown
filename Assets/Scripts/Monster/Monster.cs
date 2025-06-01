@@ -304,6 +304,7 @@ public class Monster : MonoBehaviour
 
     private void DisableMonster()
     {
+        if (isJumpScaring) return;
         monsterAnimator.SetBool("IsMoving", false);
         RepositionMonster();
         isActive        = false;

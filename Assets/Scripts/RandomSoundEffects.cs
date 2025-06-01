@@ -38,6 +38,14 @@ public class RandomSoundEffects : MonoBehaviour
                 nextWindowTime = Time.time + Random.Range(windowInterval.x, windowInterval.y);
             }
         }
+        else if(!isInCabin)
+        {
+            doorSource.Stop();
+            foreach (var sources in windowSources)
+            {
+                sources.Stop();
+            }
+        }
     }
 
     void PlayRandomSound(AudioSource source, AudioClip[] clips)
