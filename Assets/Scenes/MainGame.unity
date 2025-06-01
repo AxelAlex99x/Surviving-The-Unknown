@@ -510,7 +510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057224569311764, guid: b4d0d3252571eb9468266301b65df7d2, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1079071558470676, guid: b4d0d3252571eb9468266301b65df7d2, type: 3}
       propertyPath: m_Layer
@@ -2695,6 +2695,7 @@ GameObject:
   - component: {fileID: 341259519}
   - component: {fileID: 341259520}
   - component: {fileID: 341259521}
+  - component: {fileID: 341259522}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -2778,6 +2779,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1652042699}
   isPaused: 0
+--- !u!114 &341259522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341259516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb5561a102438744b3bfbf576d506a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &348518720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3391,6 +3404,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   doorCheckInterval: 0.2
+  flashlightIgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!95 &348518725 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b0d02a7ebc080cb4b8ae97eae8164dab, type: 3}
@@ -4765,13 +4781,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8221139714527490248, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -7864262506063732119, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_TagString
       value: House
       objectReference: {fileID: 0}
+    - target: {fileID: -7854724771196254184, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -5807989180345168592, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_TagString
       value: House
+      objectReference: {fileID: 0}
+    - target: {fileID: -5510160194524701887, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -4977910832316558077, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_Enabled
@@ -4789,9 +4817,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: House
       objectReference: {fileID: 0}
+    - target: {fileID: -2600679336338190325, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1555263543330260239, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -26959022232210025, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 37851542250494568, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_LocalScale.z
@@ -4808,6 +4844,18 @@ PrefabInstance:
     - target: {fileID: 37851542250494568, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.4716
+      objectReference: {fileID: 0}
+    - target: {fileID: 278781585173503482, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 465194582315619248, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 798061823436540477, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_Name
@@ -4849,9 +4897,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4544262740460841987, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4789903780385378710, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_TagString
       value: House
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922798834819489003, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6521837461536834632, guid: 367e6c320734a114db2a6a02d8a33d56, type: 3}
       propertyPath: m_TagString
@@ -8720,7 +8776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1322845054633247438, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.47
+      value: 1.72
       objectReference: {fileID: 0}
     - target: {fileID: 1322845054633247438, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8753,6 +8809,14 @@ PrefabInstance:
     - target: {fileID: 1322845054633247438, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039296588268284124, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
+      propertyPath: xSensitivity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2039296588268284124, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
+      propertyPath: ySensitivity
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4506778649855497047, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
       propertyPath: m_Name

@@ -69,6 +69,7 @@ public class Monster : MonoBehaviour
     [SerializeField] private float doorCheckInterval = 0.5f;
     private float lastDoorCheckTime;
     
+    [SerializeField] private LayerMask flashlightIgnoreLayers;
     void Start()
     {
         playerCamera      = Camera.main;
@@ -270,7 +271,9 @@ public class Monster : MonoBehaviour
             float angle = Vector3.Angle(flashlight.transform.forward, toMonster.normalized);
             if (angle > flashlight.lightComponent.spotAngle / 2f)
                 return;
-
+            
+            int layerMask = ~flashlightIgnoreLayers;
+              
             RaycastHit hit;
             if (Physics.Raycast(flashlight.transform.position, toMonster.normalized, out hit, distance))
             {
