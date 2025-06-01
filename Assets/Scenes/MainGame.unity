@@ -5275,7 +5275,7 @@ MonoBehaviour:
   - {fileID: 1434592319}
   - {fileID: 1965100930}
   spawnProbabilityInside: 0.25
-  spawnProbabilityOutside: 0.7
+  spawnProbabilityOutside: 0.5
   playerFlashlightBattery: {fileID: 1201038632}
 --- !u!1 &664022614
 GameObject:
@@ -8832,7 +8832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d7e5d8be60398409fcdae79d26cf61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
+  distance: 2
   mask:
     serializedVersion: 2
     m_Bits: 64
