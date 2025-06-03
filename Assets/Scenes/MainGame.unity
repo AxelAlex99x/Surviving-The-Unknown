@@ -8826,6 +8826,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5119878565181601032, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
+      propertyPath: far clip plane
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 5626444344761198829, guid: 0624d0a4505445440bbcf8670af4bda4, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
