@@ -3383,10 +3383,10 @@ MonoBehaviour:
   player: {fileID: 1201038623}
   jumpscareSound: {fileID: 348518729}
   stalkSpeed: 3
-  minRespawnTime: 10
-  maxRespawnTime: 15
-  minFlashlightRespawnTime: 15
-  maxFlashlightRespawnTime: 20
+  minRespawnTime: 5
+  maxRespawnTime: 10
+  minFlashlightRespawnTime: 10
+  maxFlashlightRespawnTime: 15
   attackSpeed: 5
   minAttackDistance: 1
   jumpscarePositionDistance: 1.5
@@ -8400,8 +8400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: (E) Interact
-  minRunTime: 15
-  maxRunTime: 25
+  minRunTime: 25
+  maxRunTime: 50
   restartDuration: 5
   fuelSystem: {fileID: 1163148395}
   progressSlider: {fileID: 495501043}

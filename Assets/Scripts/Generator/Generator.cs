@@ -36,6 +36,10 @@ public class Generator : Interactable
 
     void Update()
     {
+        if (!fuelSystem.IsPlayerLooking)
+        {
+            ReleaseInteraction();
+        }
         switch (currentState)
         {
             case GeneratorState.Running:

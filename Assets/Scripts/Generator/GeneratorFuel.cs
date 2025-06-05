@@ -19,7 +19,7 @@ public class GeneratorFuel : MonoBehaviour
     public bool isRefueling = false;
     private float refuelTimer = 0f;
     private Camera playerCamera;
-
+    public bool IsPlayerLooking { get; private set; }
     void Start()
     {
         generator = GetComponent<Generator>();
@@ -76,12 +76,14 @@ public class GeneratorFuel : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
+                IsPlayerLooking = true;
                 fuelSlider.gameObject.SetActive(true);
                 fuelText.gameObject.SetActive(true);
                 return;
             }
         }
         
+        IsPlayerLooking = false;
         fuelSlider.gameObject.SetActive(false);
         fuelText.gameObject.SetActive(false);
     }
