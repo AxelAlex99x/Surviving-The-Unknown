@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 public class PlayerUI : MonoBehaviour
@@ -14,5 +15,10 @@ public class PlayerUI : MonoBehaviour
     public void UpdateText(string promptMessage)
     {
         promptText.text = promptMessage;
+    }
+
+    public void ClearText()
+    {
+        promptText.text = "";
     }
 }

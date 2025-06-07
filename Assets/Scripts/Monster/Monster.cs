@@ -70,6 +70,8 @@ public class Monster : MonoBehaviour
     private float lastDoorCheckTime;
     
     [SerializeField] private LayerMask flashlightIgnoreLayers;
+    [SerializeField] PlayerUI playerUI;
+    [SerializeField] 
     void Start()
     {
         playerCamera      = Camera.main;
@@ -168,8 +170,8 @@ public class Monster : MonoBehaviour
     private void TriggerJumpscare()
     {
         if (isJumpScaring) return;
+        playerUI.ClearText();
         isJumpScaring = true;
-
         agent.enabled = false;
         foreach (var c in cameraControllers)
             if (c != null) c.enabled = false;

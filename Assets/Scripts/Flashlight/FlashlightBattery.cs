@@ -61,7 +61,7 @@ public class FlashlightBattery : MonoBehaviour
             if (currentBattery <= 20f)
             {
                 batteryTextTMP.color = Color.red;
-            }
+            } else batteryTextTMP.color = Color.white;
             batteryTextTMP.text = $"{Mathf.RoundToInt(currentBattery)}%";
         }
     }
