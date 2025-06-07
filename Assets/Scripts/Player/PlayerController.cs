@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         if(lerpCrouch)
         {
-            crouchTimer += Time.deltaTime;
+            crouchTimer += Time.deltaTime * 2;
             float p = crouchTimer / 1;
             p *= p;
             if(crounching)
