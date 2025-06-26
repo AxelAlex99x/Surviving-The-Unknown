@@ -1,4 +1,5 @@
 Se cloneaza repo-ul si se adauga in Unity Hub
+
 In folderul proiectului -> Assets se va descarca arhiva Imported Assets si se va dezarhiva de pe urmatorul link:
 
 https://drive.google.com/drive/u/1/folders/1g1p0bdOo3e0eKQYkE286QEM125oIlnQ5
